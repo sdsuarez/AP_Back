@@ -1,6 +1,5 @@
 package com.sd.project.entity;
 
-import com.sd.project.services.CityServiceImpl;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
