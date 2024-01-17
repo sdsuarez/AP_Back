@@ -1,5 +1,7 @@
 package com.sd.project.entity;
 
+import com.sd.project.services.CityServiceImpl;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -42,5 +44,6 @@ public class City {
     public void setDepartment(Department department) {
         this.department = department;
     }
+    
     
 }

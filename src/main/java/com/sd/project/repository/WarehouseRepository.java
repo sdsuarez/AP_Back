@@ -7,6 +7,6 @@ import com.sd.project.entity.Warehouse;
 
 
 @Repository
-public interface WarehoseRepository extends JpaRepository<Warehouse, Long>{
+public interface WarehouseRepository extends JpaRepository<Warehouse, Long>{
     
 }

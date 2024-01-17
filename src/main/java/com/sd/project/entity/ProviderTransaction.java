@@ -3,7 +3,7 @@ package com.sd.project.entity;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import org.springframework.data.repository.cdi.Eager;
+
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
