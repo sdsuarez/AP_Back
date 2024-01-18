@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,24 +19,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.sd.project.entity.Defect;
-import com.sd.project.repository.DefectRepository;
+import com.sd.project.entity.Account;
+import com.sd.project.repository.AccountRepository;
 
 @RestController
-@RequestMapping("/defect")
-public class DefectController {
-     Logger log = LoggerFactory.getLogger(getClass());
+@RequestMapping("/account")
+public class AccountController {
+    Logger log = LoggerFactory.getLogger(getClass());
     
     @Autowired
-    private DefectRepository defectRepository;
-    
+    private AccountRepository accountRepository;
     @GetMapping("/{id}")
     
-    public ResponseEntity<Defect> findDefect(@PathVariable Long id) {
+    public ResponseEntity<Account> findAccount(@PathVariable Long id) {
         try {
-            Defect Defect = defectRepository.findById(id)
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Defect not found"));
-            return ResponseEntity.ok(Defect);
+            Account Account = accountRepository.findById(id)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found"));
+            return ResponseEntity.ok(Account);
         } catch (ResponseStatusException ex) {
             throw ex; // Excepción ya manejada, se relanza
         } catch (Exception ex) {
@@ -47,10 +45,10 @@ public class DefectController {
 
     @GetMapping("/list")
     
-    public ResponseEntity<List<Defect>> listAuthorities() {
+    public ResponseEntity<List<Account>> listAccounts() {
         try {
-            List<Defect> authorities = defectRepository.findAll();
-            return ResponseEntity.ok(authorities);
+            List<Account> Accounts = accountRepository.findAll();
+            return ResponseEntity.ok(Accounts);
         } catch (Exception ex) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error", ex);
         }
@@ -58,10 +56,10 @@ public class DefectController {
 
     @PostMapping("/create")
     
-    public ResponseEntity<Defect> createDefect(@RequestBody Defect newDefect) {
+    public ResponseEntity<Account> createAccount(@RequestBody Account newAccount) {
         try {
-            Defect createdDefect = defectRepository.save(newDefect);
-            return ResponseEntity.status(HttpStatus.CREATED).body(createdDefect);
+            Account createdAccount = accountRepository.save(newAccount);
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdAccount);
         } catch (Exception ex) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error", ex);
         }
@@ -69,9 +67,9 @@ public class DefectController {
 
     @DeleteMapping("/delete/{id}")
     
-    public ResponseEntity<Void> deleteDefect(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteAccount(@PathVariable Long id) {
         try {
-            defectRepository.deleteById(id);
+            accountRepository.deleteById(id);
             return ResponseEntity.noContent().build();
         } catch (ResponseStatusException ex) {
             throw ex; // Excepción ya manejada, se relanza
@@ -81,9 +79,9 @@ public class DefectController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<Void> saveDefect(@ModelAttribute Defect Defect, Model model) {
+    public ResponseEntity<Void> saveAccount(@ModelAttribute Account Account, Model model) {
         try {
-            defectRepository.save(Defect);
+            accountRepository.save(Account);
             return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (Exception ex) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error", ex);
@@ -94,10 +92,10 @@ public class DefectController {
     
     public ResponseEntity<String> update(@PathVariable Long id, Model model) {
         try {
-            Defect Defect = defectRepository.findById(id)
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Defect not found"));
-            model.addAttribute("Defect", Defect);
-            return ResponseEntity.ok("Defect/update");
+            Account Account = accountRepository.findById(id)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found"));
+            model.addAttribute("Account", Account);
+            return ResponseEntity.ok("Account/update");
         } catch (ResponseStatusException ex) {
             throw ex; // Excepción ya manejada, se relanza
         } catch (Exception ex) {

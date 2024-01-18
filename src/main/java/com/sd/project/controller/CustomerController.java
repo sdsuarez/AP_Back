@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,24 +19,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.sd.project.entity.Defect;
-import com.sd.project.repository.DefectRepository;
+import com.sd.project.entity.Customer;
+import com.sd.project.repository.CustomerRepository;
 
 @RestController
-@RequestMapping("/defect")
-public class DefectController {
-     Logger log = LoggerFactory.getLogger(getClass());
+@RequestMapping("/customer")
+public class CustomerController {
+    Logger log = LoggerFactory.getLogger(getClass());
     
     @Autowired
-    private DefectRepository defectRepository;
-    
+    private CustomerRepository customerRepository;
+
     @GetMapping("/{id}")
     
-    public ResponseEntity<Defect> findDefect(@PathVariable Long id) {
+    public ResponseEntity<Customer> findCustomer(@PathVariable Long id) {
         try {
-            Defect Defect = defectRepository.findById(id)
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Defect not found"));
-            return ResponseEntity.ok(Defect);
+            Customer customer = customerRepository.findById(id)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer not found"));
+            return ResponseEntity.ok(customer);
         } catch (ResponseStatusException ex) {
             throw ex; // Excepción ya manejada, se relanza
         } catch (Exception ex) {
@@ -47,10 +46,10 @@ public class DefectController {
 
     @GetMapping("/list")
     
-    public ResponseEntity<List<Defect>> listAuthorities() {
+    public ResponseEntity<List<Customer>> listCustomers() {
         try {
-            List<Defect> authorities = defectRepository.findAll();
-            return ResponseEntity.ok(authorities);
+            List<Customer> customers = customerRepository.findAll();
+            return ResponseEntity.ok(customers);
         } catch (Exception ex) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error", ex);
         }
@@ -58,10 +57,10 @@ public class DefectController {
 
     @PostMapping("/create")
     
-    public ResponseEntity<Defect> createDefect(@RequestBody Defect newDefect) {
+    public ResponseEntity<Customer> createCustomer(@RequestBody Customer newCustomer) {
         try {
-            Defect createdDefect = defectRepository.save(newDefect);
-            return ResponseEntity.status(HttpStatus.CREATED).body(createdDefect);
+            Customer createdCustomer = customerRepository.save(newCustomer);
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdCustomer);
         } catch (Exception ex) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error", ex);
         }
@@ -69,9 +68,9 @@ public class DefectController {
 
     @DeleteMapping("/delete/{id}")
     
-    public ResponseEntity<Void> deleteDefect(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {
         try {
-            defectRepository.deleteById(id);
+            customerRepository.deleteById(id);
             return ResponseEntity.noContent().build();
         } catch (ResponseStatusException ex) {
             throw ex; // Excepción ya manejada, se relanza
@@ -81,9 +80,9 @@ public class DefectController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<Void> saveDefect(@ModelAttribute Defect Defect, Model model) {
+    public ResponseEntity<Void> saveCustomer(@ModelAttribute Customer Customer, Model model) {
         try {
-            defectRepository.save(Defect);
+            customerRepository.save(Customer);
             return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (Exception ex) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error", ex);
@@ -94,10 +93,10 @@ public class DefectController {
     
     public ResponseEntity<String> update(@PathVariable Long id, Model model) {
         try {
-            Defect Defect = defectRepository.findById(id)
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Defect not found"));
-            model.addAttribute("Defect", Defect);
-            return ResponseEntity.ok("Defect/update");
+            Customer Customer = customerRepository.findById(id)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer not found"));
+            model.addAttribute("Customer", Customer);
+            return ResponseEntity.ok("Customer/update");
         } catch (ResponseStatusException ex) {
             throw ex; // Excepción ya manejada, se relanza
         } catch (Exception ex) {
